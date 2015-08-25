@@ -1,0 +1,5 @@
+---
+postgresql:
+  db_name: springboot
+  db_user: springboot
+  db_pass: springboot

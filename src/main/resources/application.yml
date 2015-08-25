@@ -1,0 +1,20 @@
+spring:
+    thymeleaf:
+        cache: false
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://192.168.1.20:5432/springboot
+        username: springboot
+        password: springboot
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+management:
+    contextPath: /management
+    port: 8000
+    security.enabled: false
+server:
+    contextPath: /app
+    session-timeout: 900
+security:
+    basic.enabled: false
+

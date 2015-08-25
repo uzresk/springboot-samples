@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}"/>
+        <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery.todate.js}"></script>
+        <title>iTunes search[layout]</title>
+    </head>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        $(document).ready(function() {
+            $('#date').toDate({
+    	        format : 'Y年m月d日(W) H時i分s秒'
+            });
+        });
+    /*]]>*/
+    </script>
+    <body>
+        <div id="navbar" class="navbar navbar-inverse" sec:authorize="hasRole('ROLE_USER')">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/top}">iTunes Search</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                     <li><p class="navbar-text"><span id="date" class="glyphicon glyphicon-time"></span></p></li>
+                     <li><a th:href="@{/top}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                     <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span><span sec:authentication="principal.account.accountId">hoge</span></p></li>
+                     <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="navbar" class="navbar navbar-inverse" sec:authorize="isAnonymous()">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/loginForm}">iTunes Search</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                     <li><a th:href="@{/account}">Regist</a></li>
+                </ul>
+            </div>
+        </div>
+        <div layout:fragment="message">
+
+        </div>
+        <div layout:fragment="content">
+        </div>
+
+
+    </body>
+</html>
