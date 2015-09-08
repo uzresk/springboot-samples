@@ -47,12 +47,13 @@ public class SecurityConfig {
 
 		protected void configure(HttpSecurity http) throws Exception {
 
-			// アカウント登録ページはanonymous. loginPageもanonymousになる。
+			// 認証不要でアクセス可能なページ
 			http.authorizeRequests().antMatchers("/account/**").anonymous();
-
+			http.authorizeRequests().antMatchers("/oauth/twitter/**").anonymous();
+			http.authorizeRequests().antMatchers("/oauth/facebook/**").anonymous();
 			http.authorizeRequests().antMatchers("/loginForm").permitAll()
 					.anyRequest().authenticated();
-
+							
 			http.formLogin()
 					.authenticationDetailsSource(
 							MFAWebAuthenticationDetails::new) // MFAコードを取得するための設定
@@ -65,7 +66,8 @@ public class SecurityConfig {
 			http.logout()
 					.logoutRequestMatcher(
 							new AntPathRequestMatcher("/logout**"))
-					.logoutSuccessUrl("/loginForm");
+					.logoutSuccessUrl("/loginForm")
+					.invalidateHttpSession(true);
 
 			// セッションIDを変更し、セッションを新しく作り直す
 			http.sessionManagement().sessionFixation().newSession();

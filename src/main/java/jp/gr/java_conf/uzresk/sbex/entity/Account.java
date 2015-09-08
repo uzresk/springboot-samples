@@ -15,10 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="account")
+@Table(name = "account")
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	// use oauth
+	public Account(String accountId,String password) {
+		this.accountId = accountId;
+		this.password = password;
+	}
 
 	/** アカウントID */
 	@Id

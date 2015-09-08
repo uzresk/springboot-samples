@@ -108,5 +108,17 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>jackson-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 	</dependencies>
 </project>
