@@ -37,14 +37,12 @@
 	            <input type="password" class="form-control" name="password" placeholder="Password" required="required" />
 	          </div>
 	        </div>
-	        <!--
 	        <div class="form-group">
 	          <label for="inputPassword3" class="col-sm-2 control-label">MFAコード</label>
 	          <div class="col-sm-7">
 	            <input type="text" class="form-control" name="totpkey" placeholder="please enter mfa code." />
 	          </div>
 	        </div>
-	         -->
 	        <div class="form-group">
 	          <div class="col-sm-offset-2 col-sm-10">
 	            <button class="btn btn-primary" type="submit">ログイン</button>
@@ -59,6 +57,9 @@
         <div class="col-sm-8">
 	        <a th:href="@{/oauth/twitter/auth}">
 	            <button class="btn btn-info" type="submit">Twitterでログイン</button>
+	        </a>
+	        <a th:href="@{/oauth/facebook/auth}">
+	            <button class="btn btn-info" type="submit">Facebookでログイン</button>
 	        </a>
 		</div>
    		</div>
