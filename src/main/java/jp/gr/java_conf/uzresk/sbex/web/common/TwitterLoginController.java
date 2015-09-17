@@ -34,10 +34,8 @@ public class TwitterLoginController {
 	@RequestMapping("/oauth/twitter/auth")
 	String loginTwitter() {
 
-		System.out.println("Login Twitter Start");
-
 		Twitter twitter = new TwitterFactory().getInstance();
-//		twitter.setOAuthConsumer("", "");
+		
 		RequestToken requestToken = null;
 		try {
 			requestToken = twitter.getOAuthRequestToken("http://127.0.0.1:8080/app/oauth/twitter/access");
@@ -51,7 +49,7 @@ public class TwitterLoginController {
 
 	@RequestMapping("/oauth/twitter/access")
 	String loginTwitterAccess() {
-		System.out.println("loginTwitterAccess----------------");
+		
 		Configuration conf = ConfigurationContext.getInstance();
 		RequestToken requestToken = (RequestToken) session.getAttribute("requestToken");
 
@@ -70,8 +68,6 @@ public class TwitterLoginController {
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("アクセストークンを取得[" + accessToken + "]");
 
 		Account account = new Account(accessToken.getScreenName(), new Long(accessToken.getUserId()).toString());
 		LoginAccountDetails loginAccountDetails = new LoginAccountDetails(account);
