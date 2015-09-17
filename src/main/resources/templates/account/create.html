@@ -45,6 +45,12 @@
                 </label>
                 <input type="password" class="form-control" id="pass" name="password" th:field="*{password}" placeholder="password"/>
             </div>
+            <div class="form-group">
+                <label for="useMfa">MFAを有効にする。
+                  <span th:if="${#fields.hasErrors('useMfa')}" class="text-danger"  th:errors="*{useMfa}">Error</span>
+                <input type="checkbox" class="form-control" id="useMfa" name="useMfa" th:field="*{useMfa}" th:value="1" placeholder="useMfa"/>
+                </label>
+            </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">送信する</button>
                 <button type="reset" class="btn">リセット</button>

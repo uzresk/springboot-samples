@@ -21,4 +21,6 @@ public class AccountCreateForm {
 	@Email
 	@Length(max = 200)
 	private String mail;
+	
+	private String useMfa;
 }
