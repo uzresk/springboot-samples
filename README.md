@@ -65,5 +65,5 @@ oauth.appSecret=
 
 ### Open Browser
 
-`http://localhost:8080/app/`
+`http://localhost/app/`
 
