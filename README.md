@@ -26,7 +26,6 @@ http://qiita.com/uzresk/items/31a4585f7828c4a9334f
 ## Requires
 
 * Java8
-* PostgreSQL8.5 later
 
 ---
 
@@ -35,7 +34,6 @@ http://qiita.com/uzresk/items/31a4585f7828c4a9334f
 ### DataBaseSettings
 
 * change application.yml
-* apply specify the DDL（account.sql)
 
 ### Set up twitter oauth
 

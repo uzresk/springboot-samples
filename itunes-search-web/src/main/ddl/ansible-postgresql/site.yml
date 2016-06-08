@@ -1,6 +1,0 @@
----
-- hosts: server
-  become: yes 
-  roles:
-    - selinux
-    - postgresql
