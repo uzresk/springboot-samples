@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/js/jquery-1.11.2.min.js" />
+<link rel="stylesheet" href="/js/bootstrap.min.js" />
+<title>CloudManagementPortal</title>
+</head>
+
+<body>
+	<div id="navbar" class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/loginForm}">CloudManagementPortal</a>
+			</div>
+		</div>
+	</div>
+	<div class="container" layout:fragment="content">
+		<fieldset>
+			<legend>登録が完了しました。</legend>
+		</fieldset>
+		<div data-th-if="${qr != null}">
+			GoogleAuthenticatorでqrコードを読み取ってください。
+			<img th:src="${qr}" src=""></img>
+		</div>
+		<a th:href="@{/top}">
+			<button type="button" class="btn btn-success">利用を開始する</button>
+		</a>
+	</div>
+
+</body>
+</html>

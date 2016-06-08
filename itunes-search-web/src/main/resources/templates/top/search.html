@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>iTunes Search</title>
+</head>
+
+<body>
+	<div id="navbar" class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/loginForm}">CloudManagementPortal</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<!--  <li class="active"><a href="./">Default</a></li>  -->
+				<li><p class="navbar-text">
+						@<span sec:authentication="principal.account.accountId">hoge</span>
+					</p></li>
+				<li><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<div class="container" layout:fragment="content">
+		<form th:action="@{/top/search}" th:object="${searchForm}" method="POST">
+			<div class="col-md-12">
+				iTunesのmedia apiを使って検索を行います。(50件以上は検索できません)<span th:text="${test}">test1</span>
+				<hr/>
+			</div>
+
+			<div class="col-md-1">
+					<label for="media">メディア </label>
+			</div>
+			<div class="col-md-3">
+				<select th:field="*{media}" class="selectpicker" data-width="150px">
+					<option th:each="key : ${media.keySet()}"
+									th:value="${key}"
+									th:text="${media.get(key)}">pulldown</option>
+				</select>
+			</div>
+			<div class="col-md-1">
+				<label for="mail">商品名</label>
+			</div>
+			<div class="col-md-3">
+				<input type="text" class="form-control" id="term" name="term" th:field="*{term}"  placeholder="商品名を入力してください" />
+			</div>
+			<div class="col-md-12">
+				<hr/>
+			</div>
+			<div class="col-md-12">
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">検索</button>
+					<button type="reset" class="btn">クリア</button>
+				</div>
+			</div>
+		</form>
+		<div class="col-md-8">
+			<hr/>
+		</div>
+
+		<div th:if="${resultCount==null or resultCount == 0}" class="col-md-12 table-responsive">
+			検索にヒットしませんでした。検索条件を見直してください。
+		</div>
+		<div th:if="${resultCount!=null and resultCount != 0}" class="col-md-12 table-responsive">
+			<span th:text="${resultCount}" />件ヒットしました。
+			<table id="table" class="table table-striped table-bordered table-hover table-condensed">
+					<thead>
+						<tr class="success">
+							<th></th>
+							<th><div class="text-center">ID</div></th>
+							<th><div class="text-center">タイトル</div></th>
+							<th><div class="text-center">ジャンル</div></th>
+							<th><div class="text-center">アーティスト/出演者</div></th>
+							<th><div class="text-center">リリース日</div></th>
+							<th><div class="text-center">価格</div></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="result : ${result}">
+							<td><img th:src="${result.artworkUrl60}" /></td>
+							<td th:text="${result.trackId}">test1</td>
+							<td width="300px" th:text="${result.trackName}">test1</td>
+							<td class="text-center" th:text="${result.primaryGenreName}">test1</td>
+							<td width="200px" class="text-center" th:text="${result.artistName}">test1</td>
+							<td width="100px" class="text-center" th:text="${#dates.format(result.releaseDate, 'yyyy/MM/dd')}">test1</td>
+							<td width="100px" class="text-center" th:text="${result.collectionPrice}">test1</td>
+						</tr>
+					</tbody>
+			 </table>
+		 </div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+    <head>
+        <title>iTunes Search</title>
+    </head>
+
+    <body>
+        <div id="navbar" class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/loginForm}">iTunes Search</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                     <li><a th:href="@{/account}">Regist</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div th:if="${param.error}" class="container alert alert-danger" layout:fragment="message">
+            <p th:text="#{login.error}">ErrorMessage</p>
+        </div>
+
+        <div class="container" layout:fragment="content">
+        <form class="form-horizontal" method="post" th:action="@{/login}">
+	        <div class="form-group">
+	          <label for="inputEmail3" class="col-sm-2 control-label">ID</label>
+	          <div class="col-sm-7">
+	            <input type="text" class="form-control" name="accountid" placeholder="AccountId" required="required" autofocus="autofocus" />
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label for="inputPassword3" class="col-sm-2 control-label">パスワード</label>
+	          <div class="col-sm-7">
+	            <input type="password" class="form-control" name="password" placeholder="Password" required="required" />
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label for="inputPassword3" class="col-sm-2 control-label">MFAコード</label>
+	          <div class="col-sm-7">
+	            <input type="text" class="form-control" name="totpkey" placeholder="please enter mfa code." />
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <div class="col-sm-offset-2 col-sm-10">
+	            <button class="btn btn-primary" type="submit">ログイン</button>
+	          </div>
+	        </div>
+        </form>
+        <div class="col-sm-12">
+        	<hr/>
+        </div>
+        <div class="col-sm-4">       
+        </div>
+        <div class="col-sm-8">
+	        <a th:href="@{/oauth/twitter/auth}">
+	            <button class="btn btn-info" type="submit">Twitterでログイン</button>
+	        </a>
+	        <a th:href="@{/oauth/facebook/auth}">
+	            <button class="btn btn-info" type="submit">Facebookでログイン</button>
+	        </a>
+		</div>
+   		</div>
+    </body>
+</html>
