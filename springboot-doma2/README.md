@@ -1,43 +1,37 @@
+# SpringBoot1.4.2 + Doma2の実装サンプル
 
-- http://www.thymeleaf.org/eclipse-plugin-update-site/
+作る前に最低限の部分を盛り込んどく
 
-- formとcontrollerは1:1
-- formのgetter,setter,toStringはすべてlombokを利用する
+## タスク
 
-- Eclipseの設定
-    - html インライン要素から削除（input,span,div
+* 画面
+- [x]会員登録
+- [x]会員情報変更
+- [x]ログイン
+- [x]TOP
+- [ ]検索
+- [ ]会員情報削除
 
+* Controller
+- [x]Contoller前後でのログ出力（traceでパラメータ出力）
+- [x]入力チェックの順序性（必須チェック→属性チェック→相関チェック）
+- [ ]FlashScope使うサンプルを入れておきたい
+- [ ]コード管理
+- [ ]例外処理共通化
+- [ ]SessionAttributesを使うとちょっと見通し悪い？再度確認
+- [ ]チェックボックスやらいろいろなフォームのサンプル
 
+* DB周り(Doma)
+- [x]登録者・登録日、更新者・更新日を自動で設定
+- [ ]Select for updateの実装サンプル
+- [ ]検索SQLのサンプル、ページングのサンプル
+- [ ]DomaのEntity自動生成を試しとく
+- [ ]Stream,Collectを使うサンプルも作っとく
+- [x]EntityでDateTimeAPIを使う
+- [x]Optionalを使う
+- [ ]システム日付の外部化
+- [ ]テストの実装方法
 
-- 層について
-    - Entityとテーブルは同一のモデルとしてみなし、複雑なSQL以外はすべて自動で生成するS2JDBCのようなイメージにする
-    - Entityはentityパッケージ。Entityに紐付くロジックはserviceパッケージに定義する。
-    - 画面固有のビジネスロジックについてはcontroller側で記載する。
-
-- Component
-     - componentは余計なオブジェクトを生成しないため、Singleton(default)で取り扱う
-     - componentとなるオブジェクトにはメンバ変数を記載しないこと。
-
-- validator
-    - 必須チェック、属性チェック、相関チェックのタイミングは分割する（必須チェックが通らないと属性チェックは行わない）
-    - 日付、電話番号、Emailなどのチェックの場合、チェック内で属性のチェックを行う（日付フィールドに数値チェックと日付チェックをわざわざつけない）
-    - その画面でしか利用しない複数項目のチェックは画面固有のValidatorで実装する。複数画面で利用するものは独自のValidatorを作る
-    - 参考：http://qiita.com/eiryu/items/95a206d617bd2b956953
-    - Validationの仕様はここから
-        - http://beanvalidation.org/specification/
-        - http://hibernate.org/validator/documentation/
-
-- テーブル名とEntityのマッピング
-    - テーブル名はsnake、Entityはcamelで記載する。
-    - マッピングに関してはEntityのアノテーションで解決する（@Entity(naming=NamingType.SNAKE_UPPER_CASE)）
-    - EntityクラスBaseEntityクラスを継承する。BaseEntityクラスは共通のフィールドを保持し、BaseEntityListenerでInsert,Update時に共通のカラムがupdateされる
-- 楽観排他
-     - 各テーブルにはバージョンIDカラムを持ち、@Versionを付与しておく。
-
-- TODO
-    - 辞書作る
-    - validatorの一覧
-    - Controller層からDaoの直接利用は可とするか。
-
-- はまったところ
-    - SubmitボタンのnameでControllerのメソッドを振り分けるのは振り分け先のメソッドが両方ともPostMappingである必要がある。
+* その他
+- [x]messages.propertiesにまとめる
+- [ ]RBACの実装
