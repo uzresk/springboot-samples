@@ -1,5 +1,35 @@
 
-- http://www.thymeleaf.org/eclipse-plugin-update-site/
+# 環境構築
+
+## Eclipseのプラグインのインストール
+
+* いずれも、Eclipse メニューバーから Help > Install New Software... と進み、Work With’のテキストボックスに次のURLを入力してください。
+
+* Thymeleafのタグの保管をしてくれます
+    * http://www.thymeleaf.org/eclipse-plugin-update-site/
+* DomaのDaoからsqlファイルに飛べます
+    * http://dl.bintray.com/domaframework/eclipse/
+
+## Eclipseプロジェクトの設定方法
+
+* git clone https://github.com/uzresk/springboot-samples.git
+* develop ブランチに変更
+* インポート - フォルダーまたはアーカイブからプロジェクトを選択しspringboot-doma2を取り込む
+* Javaのビルドパス - src/main/resourcesの除外が*.*になっているので、これを除去する
+* プロジェクトのプロパティ - Javaコンパイラ - 注釈処理
+    * プロジェクト固有の設定を可能にする。
+* 注釈処理 - ファクトリーパス - 外部jarの追加からdoma.jarを追加する
+
+## アプリケーションの実行方法
+
+* DemoApplication.javaを右クリックして実行
+* http://localhost:8080/app/でログイン画面が表示される
+* http://localhost:8080/app/h2-console/でh2のConsole画面が表示される
+
+
+## メモ
+
+
 
 - formとcontrollerは1:1
 - formのgetter,setter,toStringはすべてlombokを利用する
