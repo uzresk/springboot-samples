@@ -13,12 +13,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class LoginUserDetails extends User {
 
-	private final Member member;
+    private final Member member;
 
-	public LoginUserDetails(Member member, Collection<GrantedAuthority> grantedAuthorities) {
+    public LoginUserDetails(Member member, Collection<GrantedAuthority> grantedAuthorities) {
 
-		super(member.getUserId(), member.getPassword(), grantedAuthorities);
-		this.member = member;
-	}
+        super(member.getUserId(), member.getPassword(), grantedAuthorities);
+        this.member = member;
+    }
 
 }

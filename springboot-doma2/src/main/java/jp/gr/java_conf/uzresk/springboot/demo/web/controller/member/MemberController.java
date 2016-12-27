@@ -1,7 +1,10 @@
 package jp.gr.java_conf.uzresk.springboot.demo.web.controller.member;
 
-import java.util.Optional;
-
+import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
+import jp.gr.java_conf.uzresk.springboot.demo.web.service.LoginUserDetails;
+import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberService;
+import jp.gr.java_conf.uzresk.springboot.framework.validator.order.CheckOrder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,75 +22,68 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
-import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
-import jp.gr.java_conf.uzresk.springboot.demo.web.service.LoginUserDetails;
-import jp.gr.java_conf.uzresk.springboot.framework.validator.order.CheckOrder;
+import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("member")
-@SessionAttributes(types = { MemberForm.class, Member.class })
+@SessionAttributes(types = {MemberEditForm.class, Member.class})
 public class MemberController {
 
-	@Autowired
-	private MemberDao memberDao;
+    @Autowired
+    private MemberService memberService;
 
-	// @Autowired
-	// SignupValidator signupValidator;
+    @ModelAttribute("memberEditForm")
+    MemberEditForm setUpForm() {
+        return new MemberEditForm();
+    }
 
-	@ModelAttribute
-	MemberForm setUpForm() {
-		return new MemberForm();
-	}
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        // binder.addValidators(signupValidator);
+    }
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		// binder.addValidators(signupValidator);
-	}
+    @GetMapping
+    String index(@AuthenticationPrincipal LoginUserDetails loginUserDetails, MemberEditForm memberEditForm, Model model) {
+        String userId = loginUserDetails.getUsername();
+        if (userId == null) {
+            throw new AccessDeniedException("access denied.");
+        }
 
-	@GetMapping
-	String index(@AuthenticationPrincipal LoginUserDetails loginUserDetails, MemberForm memberForm, Model model) {
+        Optional<Member> member = memberService.findMemberByUserId(userId);
+        member.ifPresent(m -> BeanUtils.copyProperties(m, memberEditForm));
+        member.ifPresent(m -> model.addAttribute(m));
 
-		String userId = loginUserDetails.getUsername();
-		if (userId == null) {
-			throw new AccessDeniedException("access denied.");
-		}
+        return "member/edit";
+    }
 
-		Optional<Member> member = memberDao.selectByUserId(userId);
-		member.ifPresent(m -> BeanUtils.copyProperties(m, memberForm));
-		member.ifPresent(m -> model.addAttribute(m));
+    @PostMapping(path = "edit", params = "update")
+    String edit(@AuthenticationPrincipal LoginUserDetails loginUserDetails,
+                @Validated(CheckOrder.class) MemberEditForm memberEditForm, BindingResult result, Model model, Member member) {
 
-		return "member/edit";
-	}
+        if (result.hasErrors()) {
+            result.getAllErrors().stream().forEach(System.out::println);
+            return index(loginUserDetails, memberEditForm, model);
+        }
 
-	@PostMapping(path = "edit", params = "update")
-	String edit(@AuthenticationPrincipal LoginUserDetails loginUserDetails,
-			@Validated(CheckOrder.class) MemberForm memberForm, BindingResult result, Model model, Member member) {
+        BeanUtils.copyProperties(memberEditForm, member);
 
-		if (result.hasErrors()) {
-			result.getAllErrors().stream().forEach(s -> System.out.println(s));
-			return index(loginUserDetails, memberForm, model);
-		}
+        memberService.updateMember(member);
 
-		BeanUtils.copyProperties(memberForm, member);
+        return "redirect:complete";
+    }
 
-		memberDao.update(member);
+    @PostMapping(path = "edit", params = "goToTop")
+    String goToTop() {
+        return "redirect:/top";
+    }
 
-		return "redirect:complete";
-	}
+    @GetMapping(path = "complete")
+    String complete(SessionStatus sessionStatus) {
 
-	@PostMapping(path = "edit", params = "goToTop")
-	String goToTop() {
-		System.out.println("clear");
-		return "redirect:/top";
-	}
+        sessionStatus.setComplete();
 
-	@GetMapping(path = "complete")
-	String complete(SessionStatus sessionStatus) {
-
-		sessionStatus.setComplete();
-
-		return "member/edit-complete";
-	}
+        return "member/edit-complete";
+    }
 
 }

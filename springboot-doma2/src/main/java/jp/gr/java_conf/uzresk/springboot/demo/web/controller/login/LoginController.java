@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-	Logger logger = LoggerFactory.getLogger(LoginController.class);
+    Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@GetMapping(path = "/loginForm")
-	public String loginForm() {
+    @GetMapping(path = "/loginForm")
+    public String loginForm() {
 
-		return "login/login";
-	}
+        return "login/login";
+    }
 }

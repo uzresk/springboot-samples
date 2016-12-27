@@ -3,6 +3,7 @@ package jp.gr.java_conf.uzresk.springboot.demo.dao;
 import java.util.List;
 import java.util.Optional;
 
+import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberSearchCondition;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -17,22 +18,25 @@ import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 @ConfigAutowireable
 public interface MemberDao {
 
-	@Select
-	Optional<Member> selectByUserId(String userId);
+    @Select
+    Optional<Member> selectByUserId(String userId);
 
-	@Select
-	Optional<Member> selectByUserId(String userId, SelectOptions options);
+    @Select
+    Optional<Member> selectByUserId(String userId, SelectOptions options);
 
-	@Select
-	List<Member> selectAll();
+    @Select
+    List<Member> selectAll();
 
-	@Insert
-	int insert(Member member);
+    @Select
+    List<Member> search(MemberSearchCondition condition, SelectOptions options);
 
-	@Update
-	int update(Member member);
+    @Insert
+    int insert(Member member);
 
-	@Delete
-	int delete(Member member);
+    @Update
+    int update(Member member);
+
+    @Delete
+    int delete(Member member);
 
 }

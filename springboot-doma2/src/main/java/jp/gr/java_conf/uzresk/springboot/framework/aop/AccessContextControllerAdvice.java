@@ -15,25 +15,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccessContextControllerAdvice {
 
-	@Around("bean(*Controller)")
-	public Object accessContext(ProceedingJoinPoint jp) throws Throwable {
+    @Around("bean(*Controller)")
+    public Object accessContext(ProceedingJoinPoint jp) throws Throwable {
 
-		Method method = ((MethodSignature) jp.getSignature()).getMethod();
-		Annotation[] annotations = AnnotationUtils.getAnnotations(method);
+        Method method = ((MethodSignature) jp.getSignature()).getMethod();
+        Annotation[] annotations = AnnotationUtils.getAnnotations(method);
 
-		// move @GetMapping,@PostMapping, and *Mapping only
-		if (Arrays.stream(annotations).anyMatch(a -> a.toString().indexOf("Mapping") > -1)) {
-			AccessContext.setUserName();
-			AccessContext.setSystemDate();
-		}
+        // move @GetMapping,@PostMapping, and *Mapping only
+        if (Arrays.stream(annotations).anyMatch(a -> a.toString().indexOf("Mapping") > -1)) {
+            AccessContext.setUserName();
+            AccessContext.setSystemDate();
+        }
 
-		try {
-			Object result = jp.proceed();
-			return result;
-		} catch (Throwable e) {
-			throw e;
-		} finally {
-			AccessContext.destroy();
-		}
-	}
+        try {
+            Object result = jp.proceed();
+            return result;
+        } catch (Throwable e) {
+            throw e;
+        } finally {
+            AccessContext.destroy();
+        }
+    }
 }

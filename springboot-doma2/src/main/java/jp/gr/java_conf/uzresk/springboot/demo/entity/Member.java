@@ -1,5 +1,6 @@
 package jp.gr.java_conf.uzresk.springboot.demo.entity;
 
+import lombok.ToString;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
 import org.seasar.doma.Version;
@@ -13,15 +14,17 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class Member extends BaseEntity {
 
-	@Id
-	private String userId;
+    @Id
+    private String userId;
 
-	private String password;
+    private String password;
 
-	private String name;
+    private String name;
 
-	private String authority;
+    private String authority;
 
-	@Version
-	private Long version;
+    private String gender;
+
+//    @Version
+//    private Long version;
 }
