@@ -11,8 +11,6 @@ import java.util.stream.Collector;
 @Dao
 public interface CodeDao {
 
-    //    @Select
-//    List<Code> selectAll();
     @Select(strategy = SelectType.COLLECT)
     <R> R selectAll(Collector<Code, ?, R> collector);
 

@@ -2,6 +2,7 @@ package jp.gr.java_conf.uzresk.springboot.demo.web.service;
 
 import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
 import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
+import lombok.AllArgsConstructor;
 import org.seasar.doma.jdbc.SelectOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,10 +15,10 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class MemberService {
 
-    @Autowired
-    private MemberDao memberDao;
+    private final MemberDao memberDao;
 
     public Optional<Member> findMemberByUserId(String userId) {
         return memberDao.selectByUserId(userId);

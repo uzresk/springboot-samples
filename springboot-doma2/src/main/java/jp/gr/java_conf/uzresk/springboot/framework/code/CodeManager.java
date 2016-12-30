@@ -13,8 +13,11 @@ public class CodeManager {
 
     private static ConcurrentMap<String, List<Code>> cache;
 
-    @Autowired
-    CodeDao codeDao;
+    private final CodeDao codeDao;
+    
+    public CodeManager(CodeDao codeDao) {
+        this.codeDao = codeDao;
+    }
 
     @PostConstruct
     private void load() {

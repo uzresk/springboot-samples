@@ -3,6 +3,7 @@ package jp.gr.java_conf.uzresk.springboot.demo.web.controller.signup;
 import jp.gr.java_conf.uzresk.springboot.framework.code.Code;
 import jp.gr.java_conf.uzresk.springboot.framework.code.CodeManager;
 import jp.gr.java_conf.uzresk.springboot.framework.exception.ApplicationException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,12 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("signup")
+@AllArgsConstructor
 public class SignupController {
 
-    @Autowired
-    private MemberDao memberDao;
+    private final MemberDao memberDao;
 
-    @Autowired
-    SignupValidator signupValidator;
+    private final SignupValidator signupValidator;
 
     @ModelAttribute
     SignupForm setUpForm() {

@@ -4,6 +4,7 @@ import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.LoginUserDetails;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberService;
 import jp.gr.java_conf.uzresk.springboot.framework.validator.order.CheckOrder;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ import java.util.Optional;
 @Controller
 @RequestMapping("member")
 @SessionAttributes(types = {MemberEditForm.class, Member.class})
+@AllArgsConstructor
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @ModelAttribute("memberEditForm")
     MemberEditForm setUpForm() {
@@ -40,7 +41,7 @@ public class MemberController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        // binder.addValidators(signupValidator);
+         // NOOP
     }
 
     @GetMapping
@@ -51,9 +52,11 @@ public class MemberController {
         }
 
         Optional<Member> member = memberService.findMemberByUserId(userId);
-        member.ifPresent(m -> BeanUtils.copyProperties(m, memberEditForm));
-        member.ifPresent(m -> model.addAttribute(m));
-
+        member.ifPresent(m -> {
+            BeanUtils.copyProperties(m, memberEditForm);
+            model.addAttribute(m);
+        });
+        
         return "member/edit";
     }
 

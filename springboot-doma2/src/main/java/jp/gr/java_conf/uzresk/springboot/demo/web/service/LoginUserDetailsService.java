@@ -1,29 +1,25 @@
 package jp.gr.java_conf.uzresk.springboot.demo.web.service;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.stream.Stream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
+import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
-import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Optional;
+
+@Slf4j
 @Service
+@AllArgsConstructor
 public class LoginUserDetailsService implements UserDetailsService {
 
-    Logger logger = LoggerFactory.getLogger(LoginUserDetailsService.class);
-
-    @Autowired
-    MemberDao memberDao;
+    private final MemberDao memberDao;
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {

@@ -3,6 +3,7 @@ package jp.gr.java_conf.uzresk.springboot.demo.web.controller.member;
 import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberSearchCondition;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,10 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @RequestMapping("member/search")
 @SessionAttributes(types = {MemberSearchForm.class})
+@AllArgsConstructor
 public class MemberSearchController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @ModelAttribute("memberSearchForm")
     MemberSearchForm setUpForm() {
@@ -62,19 +63,5 @@ public class MemberSearchController {
 
         return "member/list";
     }
-
-//    @PostMapping(path = "edit", params = "goToTop")
-//    String goToTop() {
-//        System.out.println("clear");
-//        return "redirect:/top";
-//    }
-//
-//    @GetMapping(path = "complete")
-//    String complete(SessionStatus sessionStatus) {
-//
-//        sessionStatus.setComplete();
-//
-//        return "member/edit-complete";
-//    }
 
 }

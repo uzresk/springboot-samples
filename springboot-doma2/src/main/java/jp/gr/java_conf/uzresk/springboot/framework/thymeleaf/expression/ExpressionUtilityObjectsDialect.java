@@ -15,12 +15,6 @@ public class ExpressionUtilityObjectsDialect extends AbstractDialect implements 
         this.expressionObjects = expressionObjects;
     }
 
-//    static {
-//        Map<String, Object> objects = new HashMap<>();
-//        objects.put("code", codeUtility);
-//        expressionObjects = Collections.unmodifiableMap(objects);
-//    }
-
     @Override
     public Map<String, Object> getAdditionalExpressionObjects(IProcessingContext processingContext) {
         return expressionObjects;
