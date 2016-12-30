@@ -53,6 +53,8 @@
 * Lombokを利用する
     * formのgetter,setter,toStringなどは@Data
     * slf4jも@slf4jを利用する
+* Autowiredは利用せずコンストラクタインジェクションを使う。
+    * http://pppurple.hatenablog.com/entry/2016/12/29/233141
 * Entityは自動生成する
 * Component
      * componentは余計なオブジェクトを生成しないため、Singleton(default)で取り扱う
