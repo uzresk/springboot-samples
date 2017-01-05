@@ -33,9 +33,6 @@ public interface MemberDao {
     @Insert
     int insert(Member member);
 
-    @Update
-    int update(Member member);
-
     @Delete
     int delete(Member member);
 
