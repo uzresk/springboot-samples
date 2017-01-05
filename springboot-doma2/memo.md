@@ -42,7 +42,10 @@
     * maven経由で起動しているため、spring-boot-maven-plugin <addResource>true</addResource>が必要
 * Run Configurationの設定
     * Command Line に spring-boot:runを設定
-    
+* JUnit
+    * testの時にsrc/main/resources配下をクラスパスに追加する
+    * モジュール名を右クリック -> Open Module Settings -> dependenciesにsrc/main/resourcesを追加
+    * scopeをtestに変更
 
 ---
 
@@ -56,6 +59,7 @@
 * Autowiredは利用せずコンストラクタインジェクションを使う。
     * http://pppurple.hatenablog.com/entry/2016/12/29/233141
 * Entityは自動生成する
+    * doma2-genを利用したい。未検証
 * Component
      * componentは余計なオブジェクトを生成しないため、Singleton(default)で取り扱う
      * このため、componentとなるオブジェクトにはメンバ変数を記載しないこと。
@@ -98,6 +102,14 @@
     * キャッシュのリロード機能は未実装
     * テンプレート側からキャッシュされたコード値を利用する場合には、CodeUtilityを利用することで実現している。(edit.html参照）
 * テスト
-    * 未実装(dbsetupを使う？）
+    * JUnit4を利用。assertはassertjとassertj-dbを利用
+    * テストデータの作成はDbsetupを利用
+    * test用のデータベースはin-memoryのh2を利用
+        * 初期セットアップでsqlを投入
+            * http://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-initialize-a-database-using-spring-jdbc
+        * spring.datasource.sql-script-encodingを指定しないと日本語が文字化けする
+* DB migration
+    * flywayを利用したい
 * はまったところ
     * SubmitボタンのnameでControllerのメソッドを振り分けるのは振り分け先のメソッドが両方ともPostMappingである必要がある。
+    

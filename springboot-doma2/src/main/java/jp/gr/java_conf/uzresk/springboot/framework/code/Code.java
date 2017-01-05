@@ -23,5 +23,4 @@ public class Code {
 
     String shortName;
 
-    String formName;
 }

@@ -16,17 +16,19 @@ spring:
     # file base
     # url: jdbc:h2:~/test
     # in-memory
+    platform: h2
     url: jdbc:h2:tcp://localhost:9092/~/test
     username: sa
     password:
     driver-class-name: org.h2.Driver
-    max-active: 10
-    max-idle: 8
-    min-idle: 8
-    initial-size: 10
+    max-active: 1
+    max-idle: 1
+    min-idle: 1
+    initial-size: 1
     validation-query: select 1
     test-on-borrow: true
     test-on-return: false
+    sql-script-encoding: UTF-8
   messages:
     basename: messages
     cache-seconds: -1

@@ -25,4 +25,5 @@ public class BaseEntityListener<T extends BaseEntity> implements EntityListener<
         LocalDateTime now = AccessContext.getSystemDate();
         baseEntity.setRegistDate(now);
     }
+    
 }

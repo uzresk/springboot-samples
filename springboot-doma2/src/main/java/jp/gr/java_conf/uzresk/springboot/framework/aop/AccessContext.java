@@ -48,9 +48,14 @@ public class AccessContext {
         }
         return getHolder().get(key);
     }
+    
 
     public static void setSystemDate() {
-        setHolder(KEY_SYSTEM_DATE, DateUtils.getSysdate());
+        setSystemDate(DateUtils.getSysdate());
+    }
+    
+    public static void setSystemDate(LocalDateTime systemDate) {
+        setHolder(KEY_SYSTEM_DATE, systemDate);
     }
 
     public static LocalDateTime getSystemDate() {
@@ -58,9 +63,13 @@ public class AccessContext {
     }
 
     public static void setUserName() {
-        setHolder(KEY_USERNAME, getUserNameFromSecurityContext());
+        setUserName(getUserNameFromSecurityContext());
     }
-
+    
+    public static void setUserName(String userName) {
+        setHolder(KEY_USERNAME, userName);
+    }
+    
     public static String getUserName() {
         return (String) getValue(KEY_USERNAME);
     }
