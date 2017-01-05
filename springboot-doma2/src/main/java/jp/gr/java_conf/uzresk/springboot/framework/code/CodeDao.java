@@ -14,5 +14,4 @@ public interface CodeDao {
     @Select(strategy = SelectType.COLLECT)
     <R> R selectAll(Collector<Code, ?, R> collector);
 
-
 }

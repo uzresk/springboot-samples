@@ -27,13 +27,14 @@ public class LoginUserDetailsService implements UserDetailsService {
         Optional<Member> member = memberDao.selectByUserId(userId);
 
         member.orElseThrow(() -> new UsernameNotFoundException(userId + " is not found."));
-
-        return new LoginUserDetails(member.get(), getAuthorities(member));
+        
+        Member m = member.get();
+        return new LoginUserDetails(m, getAuthorities(m));
     }
 
-    public Collection<GrantedAuthority> getAuthorities(Optional<Member> member) {
+    private Collection<GrantedAuthority> getAuthorities(Member member) {
 
-        String authority = member.get().getAuthority();
+        String authority = member.getAuthority();
 
         if ("1".equals(authority)) {
             return AuthorityUtils.createAuthorityList("ROLE_GENERAL", "ROLE_ADMIN");

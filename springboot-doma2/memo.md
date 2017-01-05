@@ -32,6 +32,8 @@
 
 ## IntelliJ
 
+* 設定
+    * http://stackoverflow.com/questions/6166334/disable-not-used-warning-for-public-methods-of-a-class
 * git clone
 * Openする。pomを選択して、add as maven・・・
 * lombok pluginをインストールする

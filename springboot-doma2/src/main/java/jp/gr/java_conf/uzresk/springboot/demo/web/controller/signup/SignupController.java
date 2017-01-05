@@ -1,15 +1,13 @@
 package jp.gr.java_conf.uzresk.springboot.demo.web.controller.signup;
 
-import jp.gr.java_conf.uzresk.springboot.framework.code.Code;
-import jp.gr.java_conf.uzresk.springboot.framework.code.CodeManager;
-import jp.gr.java_conf.uzresk.springboot.framework.exception.ApplicationException;
+import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
+import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
+import jp.gr.java_conf.uzresk.springboot.framework.validator.order.CheckOrder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,13 +16,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
-import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
-import jp.gr.java_conf.uzresk.springboot.framework.validator.order.CheckOrder;
-
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -47,17 +38,17 @@ public class SignupController {
     }
 
     @GetMapping
-    String index(Model model) {
+    public String index() {
 
         return "signup/signup";
     }
 
     @PostMapping(path = "create")
-    String create(@Validated(CheckOrder.class) SignupForm signupForm, BindingResult result, Model model) {
+    public String create(@Validated(CheckOrder.class) SignupForm signupForm, BindingResult result) {
 
         if (result.hasErrors()) {
-            result.getAllErrors().stream().forEach(s -> System.out.println(s));
-            return index(model);
+            result.getAllErrors().forEach(System.out::println);
+            return index();
         }
 
         Member member = new Member();
@@ -69,7 +60,7 @@ public class SignupController {
     }
 
     @GetMapping(path = "complete")
-    String complete(Model model) {
+    public String complete() {
 
         return "signup/signup-complete";
     }

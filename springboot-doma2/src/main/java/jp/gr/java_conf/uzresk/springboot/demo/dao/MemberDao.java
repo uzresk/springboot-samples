@@ -1,18 +1,16 @@
 package jp.gr.java_conf.uzresk.springboot.demo.dao;
 
-import java.util.List;
-import java.util.Optional;
-
+import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberSearchCondition;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
-import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SelectOptions;
 
-import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
+import java.util.List;
+import java.util.Optional;
 
 @Dao
 @ConfigAutowireable

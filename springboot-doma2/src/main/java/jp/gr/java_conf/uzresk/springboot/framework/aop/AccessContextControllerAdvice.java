@@ -22,16 +22,13 @@ public class AccessContextControllerAdvice {
         Annotation[] annotations = AnnotationUtils.getAnnotations(method);
 
         // move @GetMapping,@PostMapping, and *Mapping only
-        if (Arrays.stream(annotations).anyMatch(a -> a.toString().indexOf("Mapping") > -1)) {
+        if (Arrays.stream(annotations).anyMatch(a -> a.toString().contains("Mapping"))) {
             AccessContext.setUserName();
             AccessContext.setSystemDate();
         }
 
         try {
-            Object result = jp.proceed();
-            return result;
-        } catch (Throwable e) {
-            throw e;
+            return jp.proceed();
         } finally {
             AccessContext.destroy();
         }

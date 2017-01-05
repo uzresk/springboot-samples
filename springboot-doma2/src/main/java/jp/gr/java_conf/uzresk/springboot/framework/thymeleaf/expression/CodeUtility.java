@@ -3,7 +3,6 @@ package jp.gr.java_conf.uzresk.springboot.framework.thymeleaf.expression;
 import jp.gr.java_conf.uzresk.springboot.framework.code.Code;
 import jp.gr.java_conf.uzresk.springboot.framework.code.CodeManager;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

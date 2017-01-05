@@ -4,7 +4,6 @@ import jp.gr.java_conf.uzresk.springboot.demo.dao.MemberDao;
 import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import lombok.AllArgsConstructor;
 import org.seasar.doma.jdbc.SelectOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
@@ -41,9 +40,6 @@ public class MemberService {
         // 総件数の取得
         long count = options.getCount();
 
-        Page<Member> page = new PageImpl<>(members, condition.getPageable(), count);
-
-        return page;
-
+        return new PageImpl<>(members, condition.getPageable(), count);
     }
 }

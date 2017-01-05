@@ -5,7 +5,6 @@ import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberSearchCondition;
 import jp.gr.java_conf.uzresk.springboot.demo.web.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -32,7 +31,7 @@ public class MemberSearchController {
     }
 
     @GetMapping
-    String index(MemberSearchForm memberSearchForm, @PageableDefault(size = 1, page = 0) Pageable pageable, SessionStatus sessionStatus, Model model) {
+    public String index(SessionStatus sessionStatus) {
 
         // sessionからformを削除
         sessionStatus.setComplete();
@@ -42,18 +41,18 @@ public class MemberSearchController {
     }
 
     @GetMapping(path = "init")
-    String init(MemberSearchForm memberSearchForm, @PageableDefault(size = 1, page = 0) Pageable pageable, SessionStatus sessionStatus, Model model) {
+    public String init(@PageableDefault(size = 1) Pageable pageable, Model model) {
         return list(new MemberSearchForm(), pageable, model);
     }
 
     @GetMapping(path = "paging")
-    String paging(MemberSearchForm memberSearchForm, @PageableDefault(size = 1) Pageable pageable, Model model) {
+    public String paging(MemberSearchForm memberSearchForm, @PageableDefault(size = 1) Pageable pageable, Model model) {
 
         return list(memberSearchForm, pageable, model);
     }
 
     @PostMapping(path = "list")
-    String list(MemberSearchForm memberSearchForm, @PageableDefault(size = 1, page = 0) Pageable pageable, Model model) {
+    public String list(MemberSearchForm memberSearchForm, @PageableDefault(size = 1) Pageable pageable, Model model) {
 
         MemberSearchCondition condition = new MemberSearchCondition(pageable);
         BeanUtils.copyProperties(memberSearchForm, condition);

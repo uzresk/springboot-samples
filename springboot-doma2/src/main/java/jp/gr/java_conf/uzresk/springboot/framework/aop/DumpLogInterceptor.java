@@ -30,7 +30,7 @@ public class DumpLogInterceptor extends HandlerInterceptorAdapter {
         // dump request parameter
         List<String> o = new ArrayList<>();
         Map<String, String[]> requestParameterMap = request.getParameterMap();
-        requestParameterMap.keySet().stream()
+        requestParameterMap.keySet()
                 .forEach(key -> o.add(key + Arrays.deepToString(requestParameterMap.get(key))));
         log.trace("  args - " + o.stream().sorted(Comparator.naturalOrder()).collect(Collectors.joining(",")));
 

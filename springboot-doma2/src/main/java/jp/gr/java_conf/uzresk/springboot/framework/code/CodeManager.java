@@ -1,6 +1,5 @@
 package jp.gr.java_conf.uzresk.springboot.framework.code;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,17 +19,11 @@ public class CodeManager {
     }
 
     @PostConstruct
-    private void load() {
+    public void load() {
 
 //        cache = codes.stream().collect(Collectors.groupingByConcurrent(s -> s.getId()));
 //        cache = codeDao.selectAll(Collectors.groupingByConcurrent(s -> s.getId()));
         cache = codeDao.selectAll(Collectors.groupingByConcurrent(Code::getId));
-
-        // TODO unmodifiedMap
-    }
-
-    public ConcurrentMap<String, List<Code>> getCodeCache() {
-        return cache;
     }
 
     public List<Code> getCodes(String id) {

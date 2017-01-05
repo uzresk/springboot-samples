@@ -2,10 +2,9 @@ package jp.gr.java_conf.uzresk.springboot.demo.web.controller.member;
 
 import jp.gr.java_conf.uzresk.springboot.framework.validator.annotation.Code;
 import jp.gr.java_conf.uzresk.springboot.framework.validator.order.AttributeCheck;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import jp.gr.java_conf.uzresk.springboot.framework.validator.order.RequiredCheck;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
 public class MemberEditForm {

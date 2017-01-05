@@ -1,16 +1,15 @@
 package jp.gr.java_conf.uzresk.springboot.framework.aop;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
+import jp.gr.java_conf.uzresk.springboot.framework.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import jp.gr.java_conf.uzresk.springboot.framework.utils.DateUtils;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AccessContext {
 
@@ -18,21 +17,21 @@ public class AccessContext {
 
     private static final String KEY_USERNAME = "userName";
 
-    private static final ThreadLocal<Map<String, Object>> HOLDER = new ThreadLocal<Map<String, Object>>();
+    private static final ThreadLocal<Map<String, Object>> HOLDER = new ThreadLocal<>();
 
-    public static void init() {
-        HOLDER.set(new HashMap<String, Object>());
+    private static void init() {
+        HOLDER.set(new HashMap<>());
     }
 
-    public static void destroy() {
+    static void destroy() {
         HOLDER.remove();
     }
 
-    public static Map<String, Object> getHolder() {
+    private static Map<String, Object> getHolder() {
         return HOLDER.get();
     }
 
-    public static void setHolder(String key, Object value) {
+    private static void setHolder(String key, Object value) {
         if (HOLDER.get() == null) {
             init();
         }
@@ -42,18 +41,18 @@ public class AccessContext {
         }
     }
 
-    public static Object getValue(String key) {
+    private static Object getValue(String key) {
         if (getHolder() == null) {
             return "";
         }
         return getHolder().get(key);
     }
-    
 
-    public static void setSystemDate() {
+
+    static void setSystemDate() {
         setSystemDate(DateUtils.getSysdate());
     }
-    
+
     public static void setSystemDate(LocalDateTime systemDate) {
         setHolder(KEY_SYSTEM_DATE, systemDate);
     }
@@ -62,14 +61,14 @@ public class AccessContext {
         return (LocalDateTime) getValue(KEY_SYSTEM_DATE);
     }
 
-    public static void setUserName() {
+    static void setUserName() {
         setUserName(getUserNameFromSecurityContext());
     }
-    
+
     public static void setUserName(String userName) {
         setHolder(KEY_USERNAME, userName);
     }
-    
+
     public static String getUserName() {
         return (String) getValue(KEY_USERNAME);
     }

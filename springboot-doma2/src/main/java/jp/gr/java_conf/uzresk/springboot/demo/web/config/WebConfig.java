@@ -2,6 +2,7 @@ package jp.gr.java_conf.uzresk.springboot.demo.web.config;
 
 import jp.gr.java_conf.uzresk.springboot.framework.thymeleaf.expression.CodeUtility;
 import jp.gr.java_conf.uzresk.springboot.framework.thymeleaf.expression.ExpressionUtilityObjectsDialect;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -18,18 +19,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@AllArgsConstructor
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
-    @Autowired
-    private CodeUtility codeUtility;
+    private final CodeUtility codeUtility;
 
     /**
      * Validatorで利用するメッセージをMessageResourceから取得するように変更
-     *
-     * @return
      */
     @Bean
     public LocalValidatorFactoryBean validator() {
@@ -62,8 +60,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     /**
      * indexページの設定
-     *
-     * @return
      */
     @Bean
     public WebMvcConfigurerAdapter forwardToIndex() {
