@@ -9,7 +9,6 @@ import jp.gr.java_conf.uzresk.springboot.demo.DemoApplicationTestCase;
 import jp.gr.java_conf.uzresk.springboot.demo.entity.Member;
 import jp.gr.java_conf.uzresk.springboot.framework.aop.AccessContext;
 import jp.gr.java_conf.uzresk.springboot.framework.utils.DateUtils;
-import org.assertj.core.api.Assertions;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.Request;
